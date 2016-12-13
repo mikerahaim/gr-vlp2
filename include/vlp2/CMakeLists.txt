@@ -22,5 +22,5 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/vlp2
+    amp2d_fixed_height.h DESTINATION include/vlp2
 )

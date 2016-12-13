@@ -26,6 +26,7 @@ include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 list(APPEND vlp2_sources
+    amp2d_fixed_height_impl.cc
 )
 
 set(vlp2_sources "${vlp2_sources}" PARENT_SCOPE)

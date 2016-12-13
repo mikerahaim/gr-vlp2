@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<block>
+  <name>amp2d_fixed_height</name>
+  <key>vlp2_amp2d_fixed_height</key>
+  <category>vlp2</category>
+  <import>import vlp2</import>
+  <make>vlp2.amp2d_fixed_height($Ax, $Dz, $m, $CtCr, $A, $R, $Ts, $n, $fov)</make>
+
+  <param>
+    <name>Tx Amplitude</name>
+    <key>Ax</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Vertical Distance</name>
+    <key>Dz</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Lambertian Order</name>
+    <key>m</key>
+    <value>1</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Tx_Rx Gain Constant</name>
+    <key>CtCr</key>
+    <value>1</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Pd Area</name>
+    <key>A</key>
+    <value>1</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Pd Responsivity</name>
+    <key>R</key>
+    <value>1</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Filter Tranmittance</name>
+    <key>Ts</key>
+    <value>1</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Concentrator Index of Refraction</name>
+    <key>n</key>
+    <value>1</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Concentrator Field of View</name>
+    <key>fov</key>
+    <value>90</value>
+    <type>float</type>
+  </param>
+
+
+
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+  
+</block>
