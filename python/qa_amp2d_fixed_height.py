@@ -55,7 +55,7 @@ class qa_amp2d_fixed_height (gr_unittest.TestCase):
         self.tb.connect(blk, dst)
         self.tb.run()
         result_data = dst.data()
-        
+  
         self.assertFloatTuplesAlmostEqual(expected_result, result_data, 6)
 
 

@@ -16,7 +16,8 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
-    vlp2_amp2d_fixed_height.xml DESTINATION share/gnuradio/grc/blocks
+    vlp2_amp2d_fixed_height.xml
+    vlp2_amp2d_ff.xml
+    vlp2_trilat_scaleable_ff.xml DESTINATION share/gnuradio/grc/blocks
 )

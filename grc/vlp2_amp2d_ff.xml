@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <block>
-  <name>amp2d_fixed_height</name>
-  <key>vlp2_amp2d_fixed_height</key>
+  <name>amp2d_ff</name>
+  <key>vlp2_amp2d_ff</key>
   <category>[vlp2]</category>
   <import>import vlp2</import>
-  <make>vlp2.amp2d_fixed_height($Ax, $Dz, $m, $CtCr, $A, $R, $Ts, $n, $fov)</make>
-
+  <make>vlp2.amp2d_ff($Ax, $Dz, $m, $CtCr, $A, $R, $Ts, $n, $fov, $tx_number)</make>
   <param>
     <name>Tx Amplitude</name>
     <key>Ax</key>
@@ -29,7 +28,7 @@
     <name>Tx_Rx Gain Constant</name>
     <key>CtCr</key>
     <value>1</value>
-    <type>float</type>
+    <type>real_vector</type>
   </param>
 
   <param>
@@ -66,17 +65,24 @@
     <value>90</value>
     <type>float</type>
   </param>
-
-
-
-  <sink>
-    <name>in</name>
-    <type>float</type>
-  </sink>
-
-  <source>
-    <name>out</name>
-    <type>float</type>
-  </source>
+  <param>
+     <name> Number of Transmitters </name>
+     <key>tx_number</key>
+     <value>4</value>
+     <type>float</type>
+  </param>
   
+  <check> $tx_number &gt;= 3 </check>
+  
+  <sink>
+     <name>in</name>
+     <type>float</type>
+     <nports>$tx_number</nports>
+  </sink>
+  <source>
+     <name>out</name>
+     <type>float</type>
+     <nports>$tx_number</nports>
+  </source>  
+    
 </block>

@@ -24,10 +24,10 @@ include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
-
 list(APPEND vlp2_sources
     amp2d_fixed_height_impl.cc
-)
+    amp2d_ff_impl.cc
+    trilat_scaleable_ff_impl.cc )
 
 set(vlp2_sources "${vlp2_sources}" PARENT_SCOPE)
 if(NOT vlp2_sources)
@@ -36,6 +36,7 @@ if(NOT vlp2_sources)
 endif(NOT vlp2_sources)
 
 add_library(gnuradio-vlp2 SHARED ${vlp2_sources})
+#target_link_libraries(gnuradio-vlp2-fortran ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
 target_link_libraries(gnuradio-vlp2 ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
 set_target_properties(gnuradio-vlp2 PROPERTIES DEFINE_SYMBOL "gnuradio_vlp2_EXPORTS")
 
@@ -70,6 +71,7 @@ add_executable(test-vlp2 ${test_vlp2_sources})
 
 target_link_libraries(
   test-vlp2
+  ${ARMADILLO_LIBRARIES}
   ${GNURADIO_RUNTIME_LIBRARIES}
   ${Boost_LIBRARIES}
   ${CPPUNIT_LIBRARIES}

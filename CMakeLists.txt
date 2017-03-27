@@ -22,7 +22,10 @@
 ########################################################################
 cmake_minimum_required(VERSION 2.6)
 project(gr-vlp2 CXX C)
+enable_language(CXX)
 enable_testing()
+cmake_policy(SET CMP0026 OLD)
+cmake_policy(SET CMP0045 OLD)
 
 #select the release build type by default to get optimization flags
 if(NOT CMAKE_BUILD_TYPE)
@@ -32,7 +35,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "")
 
 #make sure our local CMake Modules path comes first
-list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 ########################################################################
 # Compiler specific setup
@@ -117,6 +120,11 @@ if(NOT CPPUNIT_FOUND)
     message(FATAL_ERROR "CppUnit required to compile vlp2")
 endif()
 
+
+find_package(Eigen3)
+IF (EIGEN3_FOUND)
+	message("Eigen found")
+endif()
 ########################################################################
 # Setup doxygen option
 ########################################################################
@@ -182,3 +190,5 @@ endif(NOT CMAKE_MODULES_DIR)
 install(FILES cmake/Modules/vlp2Config.cmake
     DESTINATION ${CMAKE_MODULES_DIR}/vlp2
 )
+
+

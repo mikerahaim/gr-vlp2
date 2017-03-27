@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<block>
+  <name>trilat_scaleable_ff</name>
+  <key>vlp2_trilat_scaleable_ff</key>
+  <category>[vlp2]</category>
+  <import>import vlp2</import>
+  <make>vlp2.trilat_scaleable_ff($tx_coords, $tx_number, $tx_z)</make>
+ <param>
+    <name>TX Coordinates</name>
+    <key>tx_coords</key>
+    <type>raw</type>
+  </param>
+
+ <param>
+  <name>Number of Transmitters</name>
+  <key>tx_number</key>
+  <type>float</type>
+ </param>
+
+ <param>
+  <name>Transmitter Height</name>
+  <key>tx_z</key>
+  <type>float</type>
+ </param>
+ 
+  <check> $tx_number &gt;= 3</check>
+  
+  
+   <sink>
+     <name>in</name>
+     <type>float</type>
+     <nports>$tx_number</nports>
+  </sink>
+
+
+ <source>
+    <name>x</name>
+    <type>float</type>
+  </source>
+  <source>
+    <name>y</name>
+    <type>float</type>
+  </source>
+  <source>
+    <name>z</name>
+    <type>float</type>
+  </source>
+</block>
