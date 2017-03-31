@@ -4,7 +4,7 @@
 # GNU Radio Python Flow Graph
 # Title: VLP Simulation of 2x2 Array
 # Author: Richard McAllister, Mike Rahaim
-# Generated: Fri Mar 31 15:13:05 2017
+# Generated: Fri Mar 31 17:14:53 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -144,7 +144,6 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.goertzel_fc_0_1 = fft.goertzel_fc(samp_rate, goertzel_size, TX3_f)
         self.goertzel_fc_0_0 = fft.goertzel_fc(samp_rate, goertzel_size, TX4_f)
         self.goertzel_fc_0 = fft.goertzel_fc(samp_rate, goertzel_size, TX1_f)
-        self.blocks_throttle_1 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
         self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_float*1)
         self.blocks_multiply_const_vxx_0_2 = blocks.multiply_const_vff((2, ))
@@ -226,13 +225,12 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_complex_to_mag_0_1, 0), (self.blocks_multiply_const_vxx_0_1, 0))    
         self.connect((self.blocks_complex_to_mag_0_2, 0), (self.blocks_multiply_const_vxx_0, 0))    
         self.connect((self.blocks_float_to_complex_1, 0), (self.Position, 1))    
-        self.connect((self.blocks_float_to_complex_1_0, 0), (self.blocks_throttle_1, 0))    
+        self.connect((self.blocks_float_to_complex_1_0, 0), (self.Position, 0))    
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.vlp2_amp2d_ff_0, 1))    
         self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.vlp2_amp2d_ff_0, 0))    
         self.connect((self.blocks_multiply_const_vxx_0_1, 0), (self.vlp2_amp2d_ff_0, 2))    
         self.connect((self.blocks_multiply_const_vxx_0_2, 0), (self.vlp2_amp2d_ff_0, 3))    
         self.connect((self.blocks_throttle_0, 0), (self.blocks_add_xx_0, 0))    
-        self.connect((self.blocks_throttle_1, 0), (self.Position, 0))    
         self.connect((self.goertzel_fc_0, 0), (self.blocks_complex_to_mag_0, 0))    
         self.connect((self.goertzel_fc_0_0, 0), (self.blocks_complex_to_mag_0_0, 0))    
         self.connect((self.goertzel_fc_0_1, 0), (self.blocks_complex_to_mag_0_1, 0))    
@@ -367,7 +365,6 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.goertzel_fc_0_1.set_rate(self.samp_rate)
         self.goertzel_fc_0_0.set_rate(self.samp_rate)
         self.goertzel_fc_0.set_rate(self.samp_rate)
-        self.blocks_throttle_1.set_sample_rate(self.samp_rate)
         self.blocks_throttle_0.set_sample_rate(self.samp_rate)
         self.analog_sig_source_x_3.set_sampling_freq(self.samp_rate)
         self.analog_sig_source_x_2.set_sampling_freq(self.samp_rate)
