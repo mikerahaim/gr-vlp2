@@ -78,7 +78,7 @@ namespace gr {
       float **out = (float **) &output_items[0];   
         for (int i = 0; i < noutput_items; i++){    
         for (int j = 1; j < txn; j++) {   
-           Bx(j-1) =   .5*( ((float *)input_items[0])[i] - ((float *)input_items[j])[i] + trilat_scaleable_ff_impl::d_sqrd_x_1[j-1] );
+           Bx(j-1) =   .5*( ( ((float *)input_items[0])[i]*((float *)input_items[0])[i]) - ( ((float *)input_items[j])[i]*((float *)input_items[j])[i]) + trilat_scaleable_ff_impl::d_sqrd_x_1[j-1] );
         } 
         
          //std::cout << "Matrix B: " << Bx << std::endl;

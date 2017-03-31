@@ -4,7 +4,7 @@
 # GNU Radio Python Flow Graph
 # Title: VLP Simulation of 2x2 Array
 # Author: Richard McAllister, Mike Rahaim
-# Generated: Fri Mar 31 14:40:55 2017
+# Generated: Fri Mar 31 15:13:05 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -77,6 +77,7 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.distance1 = distance1 = numpy.sqrt( (x_var-TX1_location[0])**2 + (y_var-TX1_location[1])**2 + Dz**2)
         self.tx_number = tx_number = 4
         self.samp_rate = samp_rate = int(2e6)
+        self.noise = noise = 0
         self.lam_order = lam_order = 0.88
         self.goertzel_size = goertzel_size = 2000
         self.angle4 = angle4 = (numpy.arccos(  Dz/distance4  ) ) * (180/math.pi)
@@ -99,6 +100,9 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self._x_var_range = Range(0, 1, .005, 0.75, 200)
         self._x_var_win = RangeWidget(self._x_var_range, self.set_x_var, "x_var", "counter_slider", float)
         self.top_layout.addWidget(self._x_var_win)
+        self._noise_range = Range(0, 1, .01, 0, 200)
+        self._noise_win = RangeWidget(self._noise_range, self.set_noise, "noise", "counter_slider", float)
+        self.top_layout.addWidget(self._noise_win)
         self.vlp2_trilat_scaleable_ff_0 = vlp2.trilat_scaleable_ff((TX1_location, TX2_location, TX3_location, TX4_location), 4, Dz)
         self.vlp2_amp2d_ff_0 = vlp2.amp2d_ff(TXn_ampl, Dz, lam_order, (CtCr), 1, 1, 1, 1, 90, tx_number)
         self.vlc_channel_relative_0_2 = vlc.channel_relative(angle4, angle4, distance4, lam_order, 1, 1, 90, CtCr[3], 1)
@@ -136,45 +140,12 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.qtgui_number_sink_0_1.enable_autoscale(False)
         self._qtgui_number_sink_0_1_win = sip.wrapinstance(self.qtgui_number_sink_0_1.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_number_sink_0_1_win)
-        self.qtgui_number_sink_0 = qtgui.number_sink(
-            gr.sizeof_float,
-            0,
-            qtgui.NUM_GRAPH_HORIZ,
-            4
-        )
-        self.qtgui_number_sink_0.set_update_time(0.10)
-        self.qtgui_number_sink_0.set_title("")
-        
-        labels = ["", "", "", "", "",
-                  "", "", "", "", ""]
-        units = ["", "", "", "", "",
-                 "", "", "", "", ""]
-        colors = [("black", "black"), ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black"),
-                  ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black"), ("black", "black")]
-        factor = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        for i in xrange(4):
-            self.qtgui_number_sink_0.set_min(i, -1)
-            self.qtgui_number_sink_0.set_max(i, 1)
-            self.qtgui_number_sink_0.set_color(i, colors[i][0], colors[i][1])
-            if len(labels[i]) == 0:
-                self.qtgui_number_sink_0.set_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_number_sink_0.set_label(i, labels[i])
-            self.qtgui_number_sink_0.set_unit(i, units[i])
-            self.qtgui_number_sink_0.set_factor(i, factor[i])
-        
-        self.qtgui_number_sink_0.enable_autoscale(False)
-        self._qtgui_number_sink_0_win = sip.wrapinstance(self.qtgui_number_sink_0.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_number_sink_0_win)
         self.goertzel_fc_0_2 = fft.goertzel_fc(samp_rate, goertzel_size, TX2_f)
         self.goertzel_fc_0_1 = fft.goertzel_fc(samp_rate, goertzel_size, TX3_f)
         self.goertzel_fc_0_0 = fft.goertzel_fc(samp_rate, goertzel_size, TX4_f)
         self.goertzel_fc_0 = fft.goertzel_fc(samp_rate, goertzel_size, TX1_f)
         self.blocks_throttle_1 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_float*1, samp_rate,True)
-        self.blocks_null_sink_2 = blocks.null_sink(gr.sizeof_float*1)
-        self.blocks_null_sink_1 = blocks.null_sink(gr.sizeof_float*1)
         self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_float*1)
         self.blocks_multiply_const_vxx_0_2 = blocks.multiply_const_vff((2, ))
         self.blocks_multiply_const_vxx_0_1 = blocks.multiply_const_vff((2, ))
@@ -191,6 +162,7 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.analog_sig_source_x_2 = analog.sig_source_f(samp_rate, analog.GR_COS_WAVE, TX4_f, TXn_ampl, 0)
         self.analog_sig_source_x_1 = analog.sig_source_f(samp_rate, analog.GR_COS_WAVE, TX2_f, TXn_ampl, 0)
         self.analog_sig_source_x_0 = analog.sig_source_f(samp_rate, analog.GR_COS_WAVE, TX1_f, TXn_ampl, 0)
+        self.analog_noise_source_x_0 = analog.noise_source_f(analog.GR_GAUSSIAN, noise, 0)
         self.analog_const_source_x_1 = analog.sig_source_f(0, analog.GR_CONST_WAVE, 0, 0, y_var)
         self.analog_const_source_x_0 = analog.sig_source_f(0, analog.GR_CONST_WAVE, 0, 0, x_var)
         self.Position = qtgui.const_sink_c(
@@ -240,6 +212,7 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.analog_const_source_x_0, 0), (self.blocks_float_to_complex_1_0, 0))    
         self.connect((self.analog_const_source_x_1, 0), (self.blocks_float_to_complex_1_0, 1))    
+        self.connect((self.analog_noise_source_x_0, 0), (self.blocks_add_xx_0, 4))    
         self.connect((self.analog_sig_source_x_0, 0), (self.vlc_channel_relative_0, 0))    
         self.connect((self.analog_sig_source_x_1, 0), (self.vlc_channel_relative_0_0, 0))    
         self.connect((self.analog_sig_source_x_2, 0), (self.vlc_channel_relative_0_2, 0))    
@@ -268,10 +241,6 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.connect((self.vlc_channel_relative_0_0, 0), (self.blocks_add_xx_0, 1))    
         self.connect((self.vlc_channel_relative_0_1, 0), (self.blocks_add_xx_0, 2))    
         self.connect((self.vlc_channel_relative_0_2, 0), (self.blocks_add_xx_0, 3))    
-        self.connect((self.vlp2_amp2d_ff_0, 0), (self.qtgui_number_sink_0, 0))    
-        self.connect((self.vlp2_amp2d_ff_0, 1), (self.qtgui_number_sink_0, 1))    
-        self.connect((self.vlp2_amp2d_ff_0, 2), (self.qtgui_number_sink_0, 2))    
-        self.connect((self.vlp2_amp2d_ff_0, 3), (self.qtgui_number_sink_0, 3))    
         self.connect((self.vlp2_amp2d_ff_0, 0), (self.vlp2_trilat_scaleable_ff_0, 0))    
         self.connect((self.vlp2_amp2d_ff_0, 1), (self.vlp2_trilat_scaleable_ff_0, 1))    
         self.connect((self.vlp2_amp2d_ff_0, 2), (self.vlp2_trilat_scaleable_ff_0, 2))    
@@ -279,8 +248,6 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.connect((self.vlp2_trilat_scaleable_ff_0, 0), (self.blocks_float_to_complex_1, 0))    
         self.connect((self.vlp2_trilat_scaleable_ff_0, 1), (self.blocks_float_to_complex_1, 1))    
         self.connect((self.vlp2_trilat_scaleable_ff_0, 2), (self.blocks_null_sink_0, 0))    
-        self.connect((self.vlp2_trilat_scaleable_ff_0, 0), (self.blocks_null_sink_1, 0))    
-        self.connect((self.vlp2_trilat_scaleable_ff_0, 1), (self.blocks_null_sink_2, 0))    
         self.connect((self.vlp2_trilat_scaleable_ff_0, 0), (self.qtgui_number_sink_0_1, 0))    
         self.connect((self.vlp2_trilat_scaleable_ff_0, 1), (self.qtgui_number_sink_0_1, 1))    
 
@@ -406,6 +373,13 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.analog_sig_source_x_2.set_sampling_freq(self.samp_rate)
         self.analog_sig_source_x_1.set_sampling_freq(self.samp_rate)
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
+
+    def get_noise(self):
+        return self.noise
+
+    def set_noise(self, noise):
+        self.noise = noise
+        self.analog_noise_source_x_0.set_amplitude(self.noise)
 
     def get_lam_order(self):
         return self.lam_order
