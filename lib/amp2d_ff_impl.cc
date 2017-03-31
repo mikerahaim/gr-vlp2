@@ -70,7 +70,8 @@ namespace gr {
       float **out = (float **) &output_items[0];
       for (int i = 0; i < noutput_items; i++){    
         for (int j = 0; j < ninputs; j++) {      	
-         *out[j] =  sqrt(pow(amp2d_ff_impl::d_C[j] / ((float *) input_items[j])[i], 1/(amp2d_ff_impl::d_m + 3)));
+        
+         *out[j] =  (pow(amp2d_ff_impl::d_C[j] / ((float *) input_items[j])[i], 1/(amp2d_ff_impl::d_m + 3)));
           out[j]++; 		
       }
       }

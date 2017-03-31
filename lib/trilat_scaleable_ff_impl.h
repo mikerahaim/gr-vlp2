@@ -48,7 +48,7 @@ namespace gr {
       		for (int i = 1; i < tx_coords.size(); i++){
       		//each value in sqrd_x_1 is the squared distance between the beacon i and the reference point
       		beacon_coords = tx_coords[i];     		
-      	    d_sqrd_x_1.push_back( pow(beacon_coords[0] - reference[0], 2) + pow(beacon_coords[1] - reference[1],2) + pow(beacon_coords[1] - reference[1], 2) );    };            
+      	    d_sqrd_x_1.push_back( pow(beacon_coords[0] - reference[0], 2) + pow(beacon_coords[1] - reference[1],2) + pow(beacon_coords[2] - reference[2], 2) );    };            
       }
    
       void set_reference(std::vector< std::vector< float > > tx_coords) { d_reference = tx_coords[0]; }

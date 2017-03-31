@@ -74,17 +74,19 @@ namespace gr {
        		Ax(i,1) = beacon_coords[1] - trilat_scaleable_ff_impl::reference(1);
        		Ax(i,2) = beacon_coords[2] - trilat_scaleable_ff_impl::reference(2);}       		
       Eigen::Matrix<float, Eigen::Dynamic, 1> Bx; Bx.resize(txn-1,1);
-      
-      const float *in = (const float *) input_items[0];
+      //std::cout << "Matrix A: " << Ax << std::endl;
       float **out = (float **) &output_items[0];   
         for (int i = 0; i < noutput_items; i++){    
-        for (int j = 1; j < txn; j++) {           	
-           Bx(j-1) =  ( .5*(( (float *) input_items[0])[i] - ((float *) input_items[j])[i] + trilat_scaleable_ff_impl::d_sqrd_x_1[j-1]) );
+        for (int j = 1; j < txn; j++) {   
+           Bx(j-1) =   .5*( ((float *)input_items[0])[i] - ((float *)input_items[j])[i] + trilat_scaleable_ff_impl::d_sqrd_x_1[j-1] );
         } 
         
-	Eigen::Vector3f pos = Ax.fullPivHouseholderQr().solve(Bx);
-      	*out[0]= pos(0,0)+reference(0); *out[1]= pos(1,0)+reference(1) ; *out[2]= pos(2,0)+trilat_scaleable_ff_impl::tx_z();
-      	out[0]++; out[1]++; out[2]++;
+         //std::cout << "Matrix B: " << Bx << std::endl;
+         
+	 Eigen::Vector3f pos = Ax.colPivHouseholderQr().solve(Bx);
+	 //std::cout << "LstSquares Solution of Ax=B" << std::endl << pos << std::endl;
+      	*out[0]= pos(0,0)+reference(0); *out[1]= pos(1,0)+reference(1) ; *out[2]= pos(2,0);
+      	  out[0]++; out[1]++; out[2]++;
       	}
         
       return noutput_items;

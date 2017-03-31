@@ -68,7 +68,7 @@ namespace gr {
       
       for (int i = 0; i < noutput_items; i++) {
         out[i] = pow(amp2d_fixed_height_impl::d_C / in[i], 1/(amp2d_fixed_height_impl::d_m + 3));
-        std::cout << in[i] << "  " << out[i] << std::endl;	
+        
         
       }
 	

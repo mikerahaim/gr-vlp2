@@ -66,9 +66,11 @@ class qa_trilat_scaleable_ff (gr_unittest.TestCase):
         self.tb.run()
         
         result_data1 = dstx.data()
+
   	print(result_data1)
   	result_data2 = dsty.data()
   	print(result_data2)
+  	
         self.assertFloatTuplesAlmostEqual(expected_resultx, result_data1, 4)
 
 if __name__ == '__main__':
