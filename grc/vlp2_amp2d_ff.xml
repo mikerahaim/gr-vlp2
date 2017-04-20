@@ -5,6 +5,8 @@
   <category>[vlp2]</category>
   <import>import vlp2</import>
   <make>vlp2.amp2d_ff($Ax, $Dz, $m, $CtCr, $A, $R, $Ts, $n, $fov, $tx_number)</make>
+ 
+  <callback>set_CtCr($CtCr, $A, $R, $Ts, $n, $fov)</callback>
   <param>
     <name>Tx Amplitude</name>
     <key>Ax</key>
@@ -72,7 +74,7 @@
      <type>float</type>
   </param>
   
-  <check> $tx_number &gt;= 3 </check>
+
   
   <sink>
      <name>in</name>

@@ -31,7 +31,7 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
-    DESTINATION ${GR_PYTHON_DIR}/vlp2
+    ctcr_ff.py DESTINATION ${GR_PYTHON_DIR}/vlp2
 )
 
 ########################################################################
@@ -44,3 +44,4 @@ set(GR_TEST_PYTHON_DIRS ${CMAKE_BINARY_DIR}/swig)
 GR_ADD_TEST(qa_amp2d_fixed_height ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_amp2d_fixed_height.py)
 GR_ADD_TEST(qa_amp2d_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_amp2d_ff.py)
 GR_ADD_TEST(qa_trilat_scaleable_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_trilat_scaleable_ff.py)
+GR_ADD_TEST(qa_ctcr_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_ctcr_ff.py)

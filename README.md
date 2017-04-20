@@ -1,6 +1,6 @@
 # gr-vlp2
 Restarting the GNURadio repository for visible light positioning to clean up files and organize the file functionality.
-This OOT module requires Eigen as a dependency. Before installing gr-vlp2, install Eigen by using 'apt-get install libeigen3' or by downloading and building the source code from Eigen's website.
+This OOT module requires Eigen as a dependency. Before installing gr-vlp2, install Eigen by using 'apt-get install libeigen3' or by downloading the source code from Eigen's website. As Eigen is header only, you don't need to build the library or compile it, and CMake will find it.
 
 To install, follow the steps below:
 

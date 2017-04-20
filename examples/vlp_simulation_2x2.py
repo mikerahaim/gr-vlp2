@@ -4,7 +4,7 @@
 # GNU Radio Python Flow Graph
 # Title: VLP Simulation of 2x2 Array
 # Author: Richard McAllister, Mike Rahaim
-# Generated: Fri Mar 31 17:14:53 2017
+# Generated: Thu Apr  6 00:09:19 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -109,6 +109,53 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.vlc_channel_relative_0_1 = vlc.channel_relative(angle3, angle3, distance3, lam_order, 1, 1, 90, CtCr[2], 1)
         self.vlc_channel_relative_0_0 = vlc.channel_relative(angle2, angle2, distance2, lam_order, 1, 1, 90, CtCr[1], 1)
         self.vlc_channel_relative_0 = vlc.channel_relative(angle1, angle1, distance1, lam_order, 1, 1, 90, CtCr[0], 1)
+        self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
+        	1024, #size
+        	samp_rate, #samp_rate
+        	"", #name
+        	1 #number of inputs
+        )
+        self.qtgui_time_sink_x_0.set_update_time(0.10)
+        self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
+        
+        self.qtgui_time_sink_x_0.set_y_label("Amplitude", "")
+        
+        self.qtgui_time_sink_x_0.enable_tags(-1, True)
+        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0.enable_autoscale(False)
+        self.qtgui_time_sink_x_0.enable_grid(False)
+        self.qtgui_time_sink_x_0.enable_axis_labels(True)
+        self.qtgui_time_sink_x_0.enable_control_panel(False)
+        
+        if not True:
+          self.qtgui_time_sink_x_0.disable_legend()
+        
+        labels = ["", "", "", "", "",
+                  "", "", "", "", ""]
+        widths = [1, 1, 1, 1, 1,
+                  1, 1, 1, 1, 1]
+        colors = ["blue", "red", "green", "black", "cyan",
+                  "magenta", "yellow", "dark red", "dark green", "blue"]
+        styles = [1, 1, 1, 1, 1,
+                  1, 1, 1, 1, 1]
+        markers = [-1, -1, -1, -1, -1,
+                   -1, -1, -1, -1, -1]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+        
+        for i in xrange(1):
+            if len(labels[i]) == 0:
+                self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_time_sink_x_0.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_0.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_0.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
+        
+        self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.qtgui_number_sink_0_1 = qtgui.number_sink(
             gr.sizeof_float,
             0,
@@ -220,6 +267,7 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_add_xx_0, 0), (self.goertzel_fc_0_0, 0))    
         self.connect((self.blocks_add_xx_0, 0), (self.goertzel_fc_0_1, 0))    
         self.connect((self.blocks_add_xx_0, 0), (self.goertzel_fc_0_2, 0))    
+        self.connect((self.blocks_add_xx_0, 0), (self.qtgui_time_sink_x_0, 0))    
         self.connect((self.blocks_complex_to_mag_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))    
         self.connect((self.blocks_complex_to_mag_0_0, 0), (self.blocks_multiply_const_vxx_0_2, 0))    
         self.connect((self.blocks_complex_to_mag_0_1, 0), (self.blocks_multiply_const_vxx_0_1, 0))    
@@ -361,6 +409,7 @@ class vlp_simulation_2x2(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
+        self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
         self.goertzel_fc_0_2.set_rate(self.samp_rate)
         self.goertzel_fc_0_1.set_rate(self.samp_rate)
         self.goertzel_fc_0_0.set_rate(self.samp_rate)

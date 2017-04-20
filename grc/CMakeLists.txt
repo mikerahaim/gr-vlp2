@@ -19,5 +19,6 @@
 install(FILES
     vlp2_amp2d_fixed_height.xml
     vlp2_amp2d_ff.xml
-    vlp2_trilat_scaleable_ff.xml DESTINATION share/gnuradio/grc/blocks
+    vlp2_trilat_scaleable_ff.xml
+    vlp2_ctcr_ff.xml DESTINATION share/gnuradio/grc/blocks
 )
