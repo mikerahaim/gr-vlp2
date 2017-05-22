@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<block>
+  <name>CtCr Calculator</name>
+  <key>vlp2_ctcr_ff</key>
+  <category>[vlp2]</category>
+  <import>import vlp2</import>
+  <make>vlp2.ctcr_ff($Ptx, $lamb_order, $Htx, $Hrx, $RX_area)</make>
+ 
+  <param>
+    <name>Lambertian Order</name>
+    <key>lamb_order</key>
+    <type>float</type>
+  </param>
+  
+  <param>
+    <name>Ptx</name>
+    <key>Ptx</key>
+    <type>float</type>
+  </param>
+  
+    <param>
+    <name>Transmitters' Height (m)</name>
+    <key>Htx</key>
+    <type>float</type>
+  </param>
+  
+  <param>
+  <name> Reciever's Height (m)</name>
+  <key>Hrx</key>
+  <type>float</type>
+  </param>
+  
+  <param>
+    <name>Reciever Area (m)</name>
+    <key>RX_area</key>
+    <type>float</type>
+  </param>
+  
+  <sink>
+    <name>in0</name>
+    <type>float</type>
+  </sink>
+
+ 
+  <source>
+    <name>CtCr</name>
+    <type>float</type>
+  </source>
+</block>

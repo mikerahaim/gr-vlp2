@@ -49,7 +49,8 @@ namespace gr {
       		for (int i = 0; i < CtCr.size(); i++){
       d_CtCr.push_back(CtCr[i]*A*R*Ts*pow(n,2)/pow(sin(M_PI*fov/180),2)); 
       		}
-      		}      		 	
+      		}      		 
+      			
       void set_C() { for (int i = 0; i < d_CtCr.size(); i++)
       {   
       	d_C.push_back(d_Ax * d_CtCr[i] * (d_m+1)/(2*M_PI) * pow(d_Dz,d_m+1));

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # 
-# Copyright 2016 <+YOU OR YOUR COMPANY+>.
+# Copyright 2017 <+YOU OR YOUR COMPANY+>.
 # 
 # This is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
-import vlp2_swig as vlp2
+from ctcr_ff import ctcr_ff
 
-class qa_amp2d_fixed_height (gr_unittest.TestCase):
+class qa_ctcr_ff (gr_unittest.TestCase):
 
     def setUp (self):
         self.tb = gr.top_block ()
@@ -32,32 +32,23 @@ class qa_amp2d_fixed_height (gr_unittest.TestCase):
         self.tb = None
 
     def test_001_t (self):
-        my_Ax = 1
-        my_Dz = 1
-        my_m = 1.5
-        my_CtCr = 2
-        my_A = 1
-        my_R = 1
-        my_Ts = 1
-        my_n = 1
-        my_fov = 90
-
-        src_data = (1.0,2.0,3.0,4.0)
-        #expected_result = (0.9505027, 0.8148127, 0.7446058, 0.69849331)
-        expected_result = (0.97493728, 0.9026697624, 0.8629067157, 0.835758122)
+        src_data = (.1636, .1652, .1712, .1488)
+        expected_result = (1.38816, 1.4017393, 1.45265018, 1.262583)
         src = blocks.vector_source_f(src_data)
-        blk = vlp2.amp2d_fixed_height(my_Ax,my_Dz,my_m,my_CtCr,my_A,my_R,my_Ts,my_n,my_fov)
-        dst = blocks.vector_sink_f()
-        print "CtCr: "
-        print blk.CtCr();
-        
-        self.tb.connect(src, blk)
-        self.tb.connect(blk, dst)
+        #Ptx, lamb_order, Htx, Hrx
+        ctcr = ctcr_ff(.7, 1, 1.375, 0,1)
+        snk = blocks.vector_sink_f()
+        self.tb.connect(src, ctcr)
+        self.tb.connect(ctcr, snk)
         self.tb.run()
-        result_data = dst.data()
-  
-        self.assertFloatTuplesAlmostEqual(expected_result, result_data, 4)
+        result_data = snk.data()
+        print("Expected Results")
+        print(expected_result)
+        print("Calculated results")
+        print(result_data)
+        # check data
+        self.assertFloatTuplesAlmostEqual (expected_result, result_data, 4)
 
 
 if __name__ == '__main__':
-    gr_unittest.run(qa_amp2d_fixed_height, "qa_amp2d_fixed_height.xml")
+    gr_unittest.run(qa_ctcr_ff, "qa_ctcr_ff.xml")

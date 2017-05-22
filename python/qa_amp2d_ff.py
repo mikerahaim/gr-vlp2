@@ -43,7 +43,8 @@ class qa_amp2d_ff (gr_unittest.TestCase):
         my_fov = 90
         my_tx = 1
         src_data = (1.0,2.0,3.0,4.0)
-        expected_result = (0.97493728, 0.9026697624, 0.8629067157, 0.835758122)
+        #expected_result = (0.97493728, 0.9026697624, 0.8629067157, 0.835758122)
+        expected_result = (0.9505027, 0.8148127, 0.7446058, 0.69849331)
         src = blocks.vector_source_f(src_data)
         blk = vlp2.amp2d_ff(my_Ax,my_Dz,my_m,my_CtCr,my_A,my_R,my_Ts,my_n,my_fov, my_tx)
         dst = blocks.vector_sink_f()
@@ -70,7 +71,8 @@ class qa_amp2d_ff (gr_unittest.TestCase):
         src_data1 = (1.0,2.0,3.0,4.0)
         src_data2 = (5.0, 6.0, 7.0, 8.0)
         src_data3 = (9.0, 10.0, 11.0, 12.0)
-        expected_result2 = (0.97493728, 0.9026697624, 0.8629067157, 0.835758122) #for stream 2
+        #expected_result2 = (0.97493728, 0.9026697624, 0.8629067157, 0.835758122) #for stream 2
+        expected_result2 = (0.9505027, 0.8148127, 0.7446058, 0.69849331)
         src1 = blocks.vector_source_f(src_data1)
         src2 = blocks.vector_source_f(src_data2)
         src3 = blocks.vector_source_f(src_data3)
@@ -87,7 +89,10 @@ class qa_amp2d_ff (gr_unittest.TestCase):
         self.tb.run()
         #Now check the outputs. Just Port 1 for now
         print "CtCr: "
-        print blk.CtCr();          
+        print blk.CtCr() 
+        print dst1.data()
+        print dst2.data()
+        print dst3.data()  
         self.assertFloatTuplesAlmostEqual(expected_result2, dst1.data(), 4)
 if __name__ == '__main__':
     #raw_input ('Press Enter to continue: ')
