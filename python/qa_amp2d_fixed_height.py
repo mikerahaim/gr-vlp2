@@ -43,8 +43,8 @@ class qa_amp2d_fixed_height (gr_unittest.TestCase):
         my_fov = 90
 
         src_data = (1.0,2.0,3.0,4.0)
-        #expected_result = (0.9505027, 0.8148127, 0.7446058, 0.69849331)
-        expected_result = (0.97493728, 0.9026697624, 0.8629067157, 0.835758122)
+        expected_result = (0.9505027, 0.8148127, 0.7446058, 0.69849331)
+        #expected_result = (0.97493728, 0.9026697624, 0.8629067157, 0.835758122)
         src = blocks.vector_source_f(src_data)
         blk = vlp2.amp2d_fixed_height(my_Ax,my_Dz,my_m,my_CtCr,my_A,my_R,my_Ts,my_n,my_fov)
         dst = blocks.vector_sink_f()
